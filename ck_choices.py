@@ -29,6 +29,7 @@ Options:
 
 from pprint import pprint
 from docopt import docopt
+from collections import OrderedDict
 import sys
 import json
 import os
@@ -62,7 +63,7 @@ def postparse(params):
 def load_schema(schemafile):
     try:
         with open(schemafile) as sf:
-            schema = json.load(sf)
+            schema = json.load(sf, object_pairs_hook=OrderedDict)
     except ValueError:
         raise(SystemExit("Schema file {} doesn't parse into JSON"
                          .format(schemafile), 1))
